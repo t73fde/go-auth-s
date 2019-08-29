@@ -4,7 +4,7 @@ export GOARCH=amd64
 export LDFLAGS="-s -w"
 for GOOS in "linux" "darwin" "windows"
 do
-  EXECUTABLE="go-auth-s-$GOOS"
+  EXECUTABLE="go-auth-s-$GOOS-$GOARCH"
   GOOS="$GOOS" go build -o "$EXECUTABLE" -ldflags "$LDFLAGS"
   if [ "$GOOS" = "windows" ]; then
     mv "$EXECUTABLE" "$EXECUTABLE.exe"
