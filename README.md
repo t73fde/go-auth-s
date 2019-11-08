@@ -14,14 +14,17 @@ that authenticates all access to any ressource (identified by a path):
 
 * If there is no user name and password given, it returns 401 (Authentication
   required).
-* If there is a given user name an password and the user name does not start
-  with a `x`, it returns 200 (OK).
-* Otherwise it returns 403 (Forbidden).
+* If the user name or the password is an empty string, it returns 403
+  (Forbidden).
+* If the user name starts with a `x`, it returns 403 (Forbidden).
+* If the user name starts with a `q` and the password is different to the user
+  name, it returns 403 (Forbidden).
+* Otherwise it returns 200 (OK)
 
 The server listens on port 9876. This can changed by using the `-p` command
 line parameter, eg. `./go-auth-s -p 1234` for listening on port 1234.
 
-My students are encouraged to use the server. A simple motivation is given by
+My students are encouraged to use this server. A simple motivation is given by
 my blog post [HTTP Basic Auth als Infrastruktur zur
 Authentifizierung](https://t73f.de/blog/2019/basic_auth_infrastruktur/) (in
 german).

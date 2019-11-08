@@ -38,4 +38,10 @@ func TestBasicAuth(t *testing.T) {
 	testBasicAuth(t, req, http.StatusForbidden)
 	req.SetBasicAuth("x", "")
 	testBasicAuth(t, req, http.StatusForbidden)
+	req.SetBasicAuth("q", "")
+	testBasicAuth(t, req, http.StatusForbidden)
+	req.SetBasicAuth("q", "r")
+	testBasicAuth(t, req, http.StatusForbidden)
+	req.SetBasicAuth("q", "q")
+	testBasicAuth(t, req, http.StatusOK)
 }

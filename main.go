@@ -13,7 +13,13 @@ import (
 )
 
 func checkAuth(username, password string) bool {
-	return username != "" && username[0] != 'x' && password != ""
+	if username == "" || username[0] == 'x' || password == "" {
+		return false
+	}
+	if username[0] == 'q' && password != username {
+		return false
+	}
+	return true
 }
 
 func handleAuth(w http.ResponseWriter, r *http.Request) {
