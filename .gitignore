@@ -6,6 +6,7 @@
 *.dylib
 
 # Generated binaries for GitHub upload
+go-auth-s
 go-auth-s-darwin-amd64.bz2
 go-auth-s-linux-amd64.bz2
 go-auth-s-windows-amd64.zip
