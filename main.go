@@ -9,7 +9,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"strconv"
 )
 
 func checkAuth(username, password string) bool {
@@ -22,7 +21,9 @@ func checkAuth(username, password string) bool {
 	return true
 }
 
-func handleAuth(w http.ResponseWriter, r *http.Request) {
+type server struct{}
+
+func (s *server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	h := w.Header()
 	h.Set("Content-Type", "text/plain")
 	h.Set("Content-Length", "0")
@@ -43,12 +44,10 @@ func handleAuth(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	uPort := flag.Uint("p", 9876, "port number")
+	port := flag.Uint("p", 9876, "port number")
 	flag.Parse()
 
-	sPort := strconv.FormatUint(uint64(*uPort), 10)
-	fmt.Println("Listening on port", sPort)
-
-	http.HandleFunc("/", handleAuth)
-	log.Fatal(http.ListenAndServe(":"+sPort, nil))
+	var srv *server
+	fmt.Printf("Listening on port %v\n", *port)
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%v", *port), srv))
 }
